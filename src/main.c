@@ -1,16 +1,17 @@
 /* Author: 	Michael Remley
  * Email:  	Mikejamesremley@gmail.com
- * Date:	Feb 6th 2024
+ * Date:	  Feb 6th 2024
  * 
  * Project Details:
- * Red Black tree written in C. 
+ * A red black tree written in C. 
  * */
 
 #include <stdio.h>
+#include <binaryTree.h>
 
-int main(int argc, int[] argv) {
+int main(int argc, char* argv[]) { 
 
-	printf("Hello World!");
+  printSomeString("Hello World!");
 
-	return 0;
+  return 0;
 }
