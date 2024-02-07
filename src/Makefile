@@ -4,10 +4,10 @@ ODIR=obj
 CC=gcc
 CFLAGS=-I$(IDIR)
 
-_DEPS = binaryTree.h
+_DEPS = binaryTree.h node.h 
 DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o binaryTree.o
+_OBJ = main.o binaryTree.o node.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)

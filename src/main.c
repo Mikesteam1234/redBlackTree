@@ -8,17 +8,22 @@
 
 #include <stdio.h>
 #include <binaryTree.h>
+#include <stdlib.h>
 
 int main(int argc, char* argv[]) { 
 
-  int some_item = 10;
-  void* nullptr = NULL;
+  int* some_item = (int*)malloc(sizeof(int));
+  *some_item = 10;
 
-  void* pointer_to_some_item = &some_item;
+  printf("int val: %d\n", *some_item);
 
-  int result_of_insertion = Insert(pointer_to_some_item);
+  int result_of_insertion = insert_data(some_item);
+  int* result_of_search = (int*)search_data(some_item);
 
   printf("Result of insert operation: %d\n", result_of_insertion);
+  printf("Result of search operation: %d\n", *result_of_search);
 
-  return 0;
+  free(some_item);
+
+  return delete_tree();
 }
