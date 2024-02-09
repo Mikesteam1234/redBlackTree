@@ -9,25 +9,25 @@ struct node {
   void* data;
 };
 
-int init_node(node_t** p) {
+node_t* init_node(void* data) {
 
-  *p = (node_t*)malloc(sizeof(node_t));
+  node_t* p = (node_t*)malloc(sizeof(node_t));
 
-  (*p)->parent = NULL;
-  (*p)->l_child = NULL;
-  (*p)->r_child = NULL;
-  (*p)->data = NULL;
+  p->parent = NULL;
+  p->l_child = NULL;
+  p->r_child = NULL;
+  p->data = data;
 
-  return 1;
+  return p;
 }
 
-int free_node(node_t** p) {
-  (*p)->parent = NULL;
-  (*p)->l_child = NULL;
-  (*p)->r_child = NULL;
-  (*p)->data = NULL;
+int free_node(node_t* p) {
+  p->parent = NULL;
+  p->l_child = NULL;
+  p->r_child = NULL;
+  p->data = NULL;
 
-  free(*p);
+  free(p);
 
   return 1;
 }

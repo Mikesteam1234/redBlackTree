@@ -16,7 +16,7 @@ typedef struct node node_t;
  * Returns: 1 on successful initialization, 0 otherwise
  * Thread Safe: Single Thread
  * */
-int init_node(node_t** p);
+node_t* init_node(void* data);
 
 /* Method: free_node
  * Description: If given a block of memory of size node_t, will free
@@ -24,7 +24,7 @@ int init_node(node_t** p);
  * Returns: 1 on successful clean up, 0 otherwise
  * Thread Safe: Single Thread
  * */
-int free_node(node_t** p);
+int free_node(node_t* p);
 
 /* Method: set_data
  * Description:

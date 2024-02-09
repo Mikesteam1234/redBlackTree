@@ -10,20 +10,31 @@
 #include <binaryTree.h>
 #include <stdlib.h>
 
+typedef struct payload {
+  int header;
+  int data;
+  int send_off;
+} payload_t;
+
+
 int main(int argc, char* argv[]) { 
 
-  int* some_item = (int*)malloc(sizeof(int));
-  *some_item = 10;
+  bTree_t* tree = init_tree();
 
-  printf("int val: %d\n", *some_item);
+  payload_t* packet = (payload_t*)malloc(sizeof(payload_t));
+  packet->header = 80085;
+  packet->data = 1337;
+  packet->send_off = 10101;
 
-  int result_of_insertion = insert_data(some_item);
-  int* result_of_search = (int*)search_data(some_item);
+  insert_data(tree, packet);
 
-  printf("Result of insert operation: %d\n", result_of_insertion);
-  printf("Result of search operation: %d\n", *result_of_search);
+  payload_t* acket = (payload_t*)search_data(tree, packet);
 
-  free(some_item);
+  printf("Packet returned from tree as,\nHeader: %d\nData: %d\nSend Off: %d\n", acket->header, acket->data, acket->send_off);
 
-  return delete_tree();
+  payload_t* removed_acket = (payload_t*)remove_data(tree, acket);
+  free(removed_acket);
+
+  delete_tree(tree);
+  return 0;
 }

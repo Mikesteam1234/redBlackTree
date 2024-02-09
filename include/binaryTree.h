@@ -1,12 +1,16 @@
 #ifndef BinaryTree
 #define BinaryTree
 
-void* search_data(void* data);
+typedef struct bTree bTree_t;
 
-int insert_data(void* data);
+bTree_t* init_tree();
 
-int remove_data(void* data);
+void* search_data(bTree_t* tree, void* data);
 
-int delete_tree();
+int insert_data(bTree_t* tree, void* data);
+
+void* remove_data(bTree_t* tree, void* data);
+
+int delete_tree(bTree_t* tree);
 
 #endif //BinaryTree
