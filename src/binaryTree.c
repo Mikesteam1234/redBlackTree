@@ -66,7 +66,9 @@ void* remove_data(bTree_t* tree, void* data) {
 
 int delete_tree(bTree_t* tree) {
 
-  //TODO Traverse and remove each node.
+  if (tree->root != NULL) {
+    free_node(tree->root);
+  }
 
   free(tree);
 

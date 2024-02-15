@@ -71,23 +71,19 @@ void insert_test() {
     test_result = 1;
   }
 
-  free(tree);
+  delete_tree(tree);
 
   print_test("Tree Insertion", test_result);
 }
 
 void remove_test() {
 
+  int some_data = 1;
   int test_result;
-
   bTree_t* tree = init_tree();
   
-  int some_data = 1;
-
   insert_data(tree, &some_data);
-
   int* result_of_remove = remove_data(tree, &some_data);
-
   test_result = some_data & *result_of_remove;
 
   free(tree);
