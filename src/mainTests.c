@@ -8,12 +8,13 @@
 
 void insert_test();
 void init_test();
+void remove_test();
 
 typedef void (*test_type)(void);
 
 int main(int argc, char argv[]) {
 
-  test_type test_funcs[2] = {&init_test, &insert_test};
+  test_type test_funcs[3] = {&init_test, &insert_test, &remove_test};
   int num_tests = *(&test_funcs + 1) - test_funcs;
 
   printf("Running Tests\n---------------\n");
@@ -73,4 +74,23 @@ void insert_test() {
   free(tree);
 
   print_test("Tree Insertion", test_result);
+}
+
+void remove_test() {
+
+  int test_result;
+
+  bTree_t* tree = init_tree();
+  
+  int some_data = 1;
+
+  insert_data(tree, &some_data);
+
+  int* result_of_remove = remove_data(tree, &some_data);
+
+  test_result = some_data & *result_of_remove;
+
+  free(tree);
+
+  print_test("Remove Data", test_result);
 }
