@@ -1,7 +1,7 @@
 IDIR=../include
 ODIR=obj
 
-CC=gcc -g -O0
+CC=gcc -g -O0 -DDEBUG=0
 CFLAGS=-I$(IDIR)
 
 _DEPS = binaryTree.h node.h 

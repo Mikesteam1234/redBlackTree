@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "binaryTree.h"
+#include "debug.h"
 
 #define ANSI_COLOR_RED    "\x1b[31m"
 #define ANSI_COLOR_GREEN  "\x1b[32m"
 #define ANSI_COLOR_RESET  "\x1b[0m"
+
+FILE *dbgf;
+int dbgmsk = 0;
 
 void insert_test();
 void init_test();
@@ -13,6 +17,7 @@ void deleteTree_test();
 void insertDataTwice_test();
 void insertTwice_searchLast_test();
 void insertTwice_searchFirst_test();
+void insertOneHundred_searchHalf_test();
 
 typedef void (*test_type)(void);
 
@@ -22,9 +27,12 @@ int compare_ints(void* a, void* b) {
 
 int main(int argc, char argv[]) {
 
-  test_type test_funcs[7] = {&init_test, &insert_test, &remove_test, 
+  dbgf = stderr;
+  dbgmsk = D_MIN;
+
+  test_type test_funcs[8] = {&init_test, &insert_test, &remove_test, 
     &deleteTree_test, &insertDataTwice_test, &insertTwice_searchLast_test,
-    &insertTwice_searchFirst_test};
+    &insertTwice_searchFirst_test, &insertOneHundred_searchHalf_test};
 
   int num_tests = *(&test_funcs + 1) - test_funcs;
 
@@ -182,4 +190,42 @@ void insertTwice_searchFirst_test() {
   delete_tree(tree);
 
   print_test("Insert Twice, Search, Expect First", test_result);
+}
+
+/* Test: Insert One Hundred, Search Middle
+ * */
+void insertOneHundred_searchHalf_test() {
+  bTree_t* tree = init_tree_with_comp(&compare_ints);
+
+  int some_constant = 98247923;
+  srand(some_constant);
+
+  int* array_of_ints[100];
+
+  for (int i = 0; i < 100; i++) {
+
+    int* val = (int*)malloc(sizeof(int));
+    *val = (rand() % some_constant) - i; 
+
+    array_of_ints[i] = val;
+    insert_data(tree, array_of_ints[i]);
+  }
+  
+  int* found_data = (int*)search_data(tree, array_of_ints[49]);
+
+  D(D_MIN, "Inserted: address -> %d, val -> %d", array_of_ints[49], *array_of_ints[49]);
+
+  int test_result = 0;
+  if (found_data != NULL && *found_data == *array_of_ints[49]) {
+    test_result = 1;
+    D(D_MIN,"Found: address -> %d, val -> %d", found_data, *found_data);
+  }
+
+  delete_tree(tree);
+  for (int i = 0; i < 100; i++) {
+    free(array_of_ints[i]);
+  }
+
+  print_test("Insert One Hundred, Search, Expect 49th.", test_result);
+
 }
