@@ -28,7 +28,7 @@ int compare_ints(void* a, void* b) {
 
 int main(int argc, char argv[]) {
 
-  dbgf = stderr;
+  dbgf = fopen("../logs/debug.log", "w");
   dbgmsk = D_MIN;
 
   test_type test_funcs[9] = {&init_test, &init_with_comp_test, &insert_test, &remove_test, 
@@ -46,6 +46,9 @@ int main(int argc, char argv[]) {
   return 0;
 }
 
+/* Print Test
+ * Description: This function prints the result of a test
+ * */
 void print_test(char title[], int was_successful) {
   if (was_successful) {
     printf("Test Completed: %s... " ANSI_COLOR_GREEN "[PASSED]" ANSI_COLOR_RESET "\n", title);
@@ -73,6 +76,10 @@ void init_test() {
   print_test("Tree Initialization", test_result);
 }
 
+/* Test Name: Init with Comparator
+ * Description: This test expects the following behavior,
+ *  - Memory is well-behaved
+ * */
 void init_with_comp_test() {
 
   int test_result = 0;
@@ -112,6 +119,8 @@ void insert_test() {
 }
 
 /* Test: Remove Data Test
+ * Description: This test expects the following behavior,
+ *  - The remove operator returns the data that was removed
  * */
 void remove_test() {
 
@@ -129,6 +138,8 @@ void remove_test() {
 }
 
 /* Test: Delete Tree Test
+ * Description: This test expects the following behavior,
+ *  - The delete operator returns 1, or success
  * */
 void deleteTree_test() {
 
@@ -140,6 +151,8 @@ void deleteTree_test() {
 }
 
 /* Test: Insert Data Twice Test
+ * Description: This test expects the following behavior,
+ *  - The insert operator returns 1 for all insertions
  * */
 void insertDataTwice_test() {
 
@@ -161,6 +174,8 @@ void insertDataTwice_test() {
 }
 
 /* Test: Insert Twice, Search Last
+ * Description: This test expects the following behavior,
+ *  - The search operator returns the last inserted data
  * */
 void insertTwice_searchLast_test() {
 
@@ -185,6 +200,8 @@ void insertTwice_searchLast_test() {
 }
 
 /* Test: Insert Twice, Search First
+ * Description: This test expects the following behavior,
+ *  - The search operator returns the first inserted data
  * */
 void insertTwice_searchFirst_test() {
 
@@ -209,6 +226,8 @@ void insertTwice_searchFirst_test() {
 }
 
 /* Test: Insert One Hundred, Search Middle
+ * Description: This test expects the following behavior,
+ *  - The search operator returns the 49th inserted data
  * */
 void insertOneHundred_searchHalf_test() {
   bTree_t* tree = init_tree_with_comp(&compare_ints);
@@ -219,7 +238,6 @@ void insertOneHundred_searchHalf_test() {
   int* array_of_ints[100];
 
   for (int i = 0; i < 100; i++) {
-
     int* val = (int*)malloc(sizeof(int));
     *val = (rand() % some_constant) - i; 
 
@@ -229,12 +247,12 @@ void insertOneHundred_searchHalf_test() {
   
   int* found_data = (int*)search_data(tree, array_of_ints[49]);
 
-  D(D_MIN, "Inserted: address -> %d, val -> %d", array_of_ints[49], *array_of_ints[49]);
+  D(D_MIN, "Inserted: address -> %p, val -> %d\r\n", array_of_ints[49], *array_of_ints[49]);
 
   int test_result = 0;
   if (found_data != NULL && *found_data == *array_of_ints[49]) {
     test_result = 1;
-    D(D_MIN,"Found: address -> %d, val -> %d", found_data, *found_data);
+    D(D_MIN,"Found: address -> %p, val -> %d\r\n", found_data, *found_data);
   }
 
   delete_tree(tree);
@@ -243,5 +261,4 @@ void insertOneHundred_searchHalf_test() {
   }
 
   print_test("Insert One Hundred, Search, Expect 49th.", test_result);
-
 }

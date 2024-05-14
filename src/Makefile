@@ -1,5 +1,6 @@
 IDIR=../include
 ODIR=obj
+LOGDIR=../logs
 
 CC=gcc -g -O0 -DDEBUG=0
 CFLAGS=-I$(IDIR)
@@ -24,4 +25,4 @@ tests : mainTests.o $(OBJ)
 all : redBlack tests
 
 clean:
-	rm -f $(ODIR)/*.o main.o mainTests.o redBlack tests
+	rm -f $(ODIR)/*.o $(LOGDIR)/*.log main.o mainTests.o redBlack tests

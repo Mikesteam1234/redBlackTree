@@ -8,7 +8,7 @@ extern FILE *dbgf;
 #define D_TRACE 0x00100000
 #define D_1     0x00000001
 
-#define D(msk, fmt, args...) if(msk & dbgmsk) { fprintf(dbgf, "%s:", __FUNCTION__); fprintf(dbgf, fmt, ## args); if (msk & D_FLUSH) fflush(dbgf); }
+#define D(msk, fmt, args...) if(msk & dbgmsk) { fprintf(dbgf, "%s\t", __FUNCTION__); fprintf(dbgf, fmt, ## args); if (msk & D_FLUSH) fflush(dbgf); }
 #define P(msk, fmt, args...) if(msk & dbgmsk) { fprintf(dbgf, fmt, ##args); if (msk & D_FLUSH) fflush(dbgf); }
 
 #else
