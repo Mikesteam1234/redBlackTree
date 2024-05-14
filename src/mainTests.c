@@ -12,6 +12,7 @@ int dbgmsk = 0;
 
 void insert_test();
 void init_test();
+void init_with_comp_test();
 void remove_test();
 void deleteTree_test();
 void insertDataTwice_test();
@@ -30,7 +31,7 @@ int main(int argc, char argv[]) {
   dbgf = stderr;
   dbgmsk = D_MIN;
 
-  test_type test_funcs[8] = {&init_test, &insert_test, &remove_test, 
+  test_type test_funcs[9] = {&init_test, &init_with_comp_test, &insert_test, &remove_test, 
     &deleteTree_test, &insertDataTwice_test, &insertTwice_searchLast_test,
     &insertTwice_searchFirst_test, &insertOneHundred_searchHalf_test};
 
@@ -70,6 +71,21 @@ void init_test() {
   free(tree);
 
   print_test("Tree Initialization", test_result);
+}
+
+void init_with_comp_test() {
+
+  int test_result = 0;
+
+  bTree_t* tree = init_tree_with_comp(&compare_ints);
+  
+  if (tree != NULL) {
+    test_result = 1;
+  }
+
+  free(tree);
+
+  print_test("Tree Initialization with Comparator", test_result);
 }
 
 /* Insert Test
